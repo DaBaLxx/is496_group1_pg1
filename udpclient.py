@@ -1,7 +1,7 @@
 # IS496: Computer Networks (Spring 2022)
 # Programming Assignment 1 -  Starter Code
-# Name and Netid of each member:
-# Member 1: 
+# Name and NetId of each member:
+# Member 1: River Liu, ll24
 # Member 2: 
 # Member 3: 
 
@@ -19,50 +19,43 @@ from pg1lib import *
 
 ############## Beginning of Part 1 ##############
 # TODO: define a buffer size for the message to be read from the UDP socket
-BUFFER = 
+BUFFER = 1024
 
 
 def part1 ():
     print("********** PART 1 **********")
-    # TODO: fill in the hostname and port number 
-    hostname = 
-    PORT = 
+    # TODO: fill in the hostname and port number
+    hostname = ''
+    PORT = 41022
 
     # A dummy message (in bytes) to test the code
     message = b"Hello World"
 
     # TODO: convert the host name to the corresponding IP address
-    HOST = 
+    HOST = '192.17.61.22'
     sin = (HOST, PORT)
-
 
     # TODO: create a datagram socket
     try:
-        
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     except socket.error as msg:
         print('Failed to create socket.')
         sys.exit()
 
-
     # TODO: convert the message from string to byte and send it to the server
+    sock.sendto(message, sin)
 
-
-
-
-    # TODO: 
+    # TODO:
     # 1. receive the acknowledgement from the server 
     # 2. convert it from network byte order to host byte order 
-
-
-
+    data = sock.recvfrom(BUFFER)
+    acknowledgement = socket.ntohs(int.from_bytes(data[0], 'big'))
 
     # TODO: print the acknowledgement to the screen
-
-
-
+    print('Acknowledgement: {}'.format(acknowledgement))
 
     # TODO: close the socket
-
+    sock.close()
 
 
 
@@ -75,7 +68,7 @@ def part1 ():
 ############## Beginning of Part 2 ##############
 # Note: any functions/variables for Part 2 will go here 
 
-def part2 ():
+# def part2 ():
 
 
 

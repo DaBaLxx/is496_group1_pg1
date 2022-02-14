@@ -1,10 +1,9 @@
 # IS496: Computer Networks (Spring 2022)
 # Programming Assignment 1 -  Starter Code 
-# Name and Netid of each member:
-# Member 1: 
+# Name and NetId of each member:
+# Member 1: River Liu, ll24
 # Member 2: 
 # Member 3: 
-
 
 
 # Note: 
@@ -21,27 +20,26 @@ from pg1lib import *
 
 ############## Beginning of Part 1 ##############
 # TODO: define a buffer size for the message to be read from the UDP socket
-BUFFER = 
+BUFFER = 1024
 
 
 def part1 ():
     print("********** PART 1 **********")
     # TODO: fill in the IP address of the host and the port number
-    HOST = 
-    PORT = 
+    HOST = '192.17.61.22'
+    PORT = 41022
     sin = (HOST, PORT)
 
     # TODO: create a datagram socket
     try:
-
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     except socket.error as e:
         print('Failed to create socket.')
         sys.exit()
 
-
     # TODO: Bind the socket to address
     try:
-
+        sock.bind(sin)
     except socket.error as e:
         print('Failed to bind socket.')
         sys.exit()
@@ -49,24 +47,24 @@ def part1 ():
     print("Waiting ...")
 
     # TODO: receive message from the client and record the address of the client socket
-
-
-
+    while True:
+        data = sock.recvfrom(BUFFER)
+        message = data[0]
+        address = data[1]
 
     # TODO: convert the message from byte to string and print it to the screen
-
-
-
+        str_message = message.decode('utf-8')
+        print('Client Message: ' + str_message)
 
     # TODO: 
-    # 1. convert the acknowledgement (e.g., interger of 1) from host byte order to network byte order
+    # 1. convert the acknowledgement (e.g., integer of 1) from host byte order to network byte order
     # 2. send the converted acknowledgement to the client
-
-
-
+        acknowledgement = socket.htons(1)
+        sock.sendto(acknowledgement.to_bytes(2, 'big'), address)
 
     # TODO: close the socket
-
+        break
+    sock.close()
 
 
 
@@ -80,7 +78,7 @@ def part1 ():
 ############## Beginning of Part 2 ##############
 # Note: any functions/variables for Part 2 will go here 
 
-def part2 ():
+# def part2 ():
 
 
 
