@@ -68,7 +68,40 @@ def part1 ():
 ############## Beginning of Part 2 ##############
 # Note: any functions/variables for Part 2 will go here 
 
-# def part2 ():
+ def part2 (argv):
+    print("********** PART 2 **********")
+    # TODO: fill in the hostname and port number
+    hostname = argv[1]
+    PORT = argv[2]
+
+    # A dummy message (in bytes) to test the code
+    message = argv[3]
+
+    # TODO: convert the host name to the corresponding IP address
+    HOST = '192.17.61.22'
+    sin = (HOST, PORT)
+
+    # TODO: create a datagram socket
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    except socket.error as msg:
+        print('Failed to create socket.')
+        sys.exit()
+
+    # TODO: convert the message from string to byte and send it to the server
+    sock.sendto(message, sin)
+
+    # TODO:
+    # 1. receive the acknowledgement from the server
+    # 2. convert it from network byte order to host byte order
+    data = sock.recvfrom(BUFFER)
+    acknowledgement = socket.ntohs(int.from_bytes(data[0], 'big'))
+
+    # TODO: print the acknowledgement to the screen
+    print('Acknowledgement: {}'.format(acknowledgement))
+
+    # TODO: close the socket
+    sock.close()
 
 
 
@@ -85,5 +118,5 @@ if __name__ == '__main__':
     if len(sys.argv) == 1:
         part1()
     else:
-        part2()
+        part2(sys.argv)
 
